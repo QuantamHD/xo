@@ -6,7 +6,7 @@ static const char *filepath = "/file";
 static const char *filename = "file";
 static const char *filecontent = "I'm the content of the only file available there\n";
 
-static int getattr_callback(const char *path, struct stat *stbuf) {
+static int getattr_callback(const char *path, struct stat *stbuf, struct fuse_file_info *fi) {
   memset(stbuf, 0, sizeof(struct stat));
 
   if (strcmp(path, "/") == 0) {
@@ -26,14 +26,14 @@ static int getattr_callback(const char *path, struct stat *stbuf) {
 }
 
 static int readdir_callback(const char *path, void *buf, fuse_fill_dir_t filler,
-    off_t offset, struct fuse_file_info *fi) {
+    off_t offset, struct fuse_file_info *fi, enum fuse_readdir_flags flags) {
   (void) offset;
   (void) fi;
 
-  filler(buf, ".", NULL, 0);
-  filler(buf, "..", NULL, 0);
+  filler(buf, ".", NULL, 0, flags);
+  filler(buf, "..", NULL, 0, flags);
 
-  filler(buf, filename, NULL, 0);
+  filler(buf, filename, NULL, 0, flags);
 
   return 0;
 }

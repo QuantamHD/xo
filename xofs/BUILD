@@ -1,11 +1,10 @@
 cc_library(
   name="fuse-example-lib",
-  srcs=glob(["*.c"]) + ["@fuse//:include"],
-  deps=[":fuse"]
+  srcs=glob(["*.c"]),
+  deps=["//third_party/fuse"]
 )
 
-cc_import(
-  name="fuse",
-  shared_library="@fuse//:lib/libfuse.so",
-  hdrs=["@fuse//:include"]
+cc_binary(
+  name = "fuse-example",
+  deps = [":fuse-example-lib"]
 )
