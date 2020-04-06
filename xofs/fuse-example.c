@@ -30,10 +30,10 @@ static int readdir_callback(const char *path, void *buf, fuse_fill_dir_t filler,
   (void) offset;
   (void) fi;
 
-  filler(buf, ".", NULL, 0, flags);
-  filler(buf, "..", NULL, 0, flags);
+  filler(buf, ".", NULL, 0, 0);
+  filler(buf, "..", NULL, 0, 0);
 
-  filler(buf, filename, NULL, 0, flags);
+  filler(buf, filename, NULL, 0, 0);
 
   return 0;
 }
