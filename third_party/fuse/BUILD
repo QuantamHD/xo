@@ -28,6 +28,9 @@ cc_library(
         fuse_directory + "lib/fuse_i.h",
         fuse_directory + "lib/mount_util.h",
         fuse_directory + "lib/fuse_misc.h"
+    ] + [
+        fuse_directory + "lib/modules/iconv.c",
+        fuse_directory + "lib/modules/subdir.c",
     ],
     copts = [
         "-D_REENTRANT",
@@ -45,6 +48,7 @@ cc_library(
     linkopts = [
         "-lrt",
         "-ldl",
+	"-lpthread"
     ],
     linkstatic = 1,
     visibility = ["//visibility:private"],
