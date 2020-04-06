@@ -1,3 +1,5 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
 package(
     default_visibility = ["//visibility:public"],
 )
@@ -12,10 +14,10 @@ cc_library(
 )
 
 cc_library(
-    name ="fuse_lib_internal",
+    name = "fuse_lib_internal",
     srcs = glob(
         [fuse_directory + "lib/*.c"],
-        exclude = [fuse_directory + "lib/mount_bsd.c"]
+        exclude = [fuse_directory + "lib/mount_bsd.c"],
     ) + [
         fuse_directory + "include/cuse_lowlevel.h",
         fuse_directory + "include/config.h",
@@ -27,7 +29,7 @@ cc_library(
         fuse_directory + "include/fuse.h",
         fuse_directory + "lib/fuse_i.h",
         fuse_directory + "lib/mount_util.h",
-        fuse_directory + "lib/fuse_misc.h"
+        fuse_directory + "lib/fuse_misc.h",
     ] + [
         fuse_directory + "lib/modules/iconv.c",
         fuse_directory + "lib/modules/subdir.c",
@@ -35,7 +37,7 @@ cc_library(
     copts = [
         "-D_REENTRANT",
         "-D_LARGEFILE_SOURCE",
-        "-DFUSERMOUNT_DIR=\\\"/run/wrappers/bin\\\""
+        "-DFUSERMOUNT_DIR=\\\"/run/wrappers/bin\\\"",
     ],
     defines = [
         "_FILE_OFFSET_BITS=64",
@@ -48,7 +50,7 @@ cc_library(
     linkopts = [
         "-lrt",
         "-ldl",
-	"-lpthread"
+        "-lpthread",
     ],
     linkstatic = 1,
     visibility = ["//visibility:private"],
