@@ -9,7 +9,8 @@ fuse_directory = "fuse-3.9.1/"
 cc_library(
     name = "fuse",
     hdrs = glob([fuse_directory + "include/*.h"]),
-    strip_include_prefix = fuse_directory,
+    strip_include_prefix = fuse_directory + "include",
+    include_prefix = "third_party/fuse",
     deps = [":fuse_lib_internal"],
 )
 
@@ -38,14 +39,11 @@ cc_library(
         "-D_REENTRANT",
         "-D_LARGEFILE_SOURCE",
         "-DFUSERMOUNT_DIR=\\\"/run/wrappers/bin\\\"",
+        "-Ithird_party/fuse/" + fuse_directory + "include",
     ],
     defines = [
         "_FILE_OFFSET_BITS=64",
         "FUSE_USE_VERSION=39",
-    ],
-    includes = [
-        fuse_directory + "include",
-        fuse_directory + "lib",
     ],
     linkopts = [
         "-lrt",

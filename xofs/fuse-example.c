@@ -1,4 +1,4 @@
-#include "fuse.h"
+#include "third_party/fuse/fuse.h"
 #include <string.h>
 #include <errno.h>
 
