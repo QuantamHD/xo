@@ -9,3 +9,8 @@ py_repositories()
 # Only needed if using the packaging rules.
 load("@rules_python//python:pip.bzl", "pip_repositories")
 pip_repositories()
+
+# Third Party
+load("//third_party:third_party.bzl", "third_party")
+third_party()
+# Third Party

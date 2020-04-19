@@ -99,12 +99,12 @@ cc_library(
     }),
     deps = select({
         ":has_absl": [
-            "//third_party/absl/debugging:failure_signal_handler",
-            "//third_party/absl/debugging:stacktrace",
-            "//third_party/absl/debugging:symbolize",
-            "//third_party/absl/strings",
-            "//third_party/absl/types:optional",
-            "//third_party/absl/types:variant",
+            "@com_google_absl//debugging:failure_signal_handler",
+            "@com_google_absl//debugging:stacktrace",
+            "@com_google_absl//debugging:symbolize",
+            "@com_google_absl//strings",
+            "@com_google_absl//types:optional",
+            "@com_google_absl//types:variant",
         ],
         "//conditions:default": [],
     }),
