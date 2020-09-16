@@ -40,4 +40,19 @@ nixpkgs_package(
     }
 )
 
+nixpkgs_package(
+    name = "gcc-arm-embedded",
+    repositories = {
+        "nixpkgs": "@nixpkgs//:default.nix",
+    }
+)
+
+nixpkgs_package(
+    name = "bossa",
+    repositories = {
+        "nixpkgs": "@nixpkgs//:default.nix",
+    }
+)
+
 register_toolchains("//prolog_rules:prolog_linux_toolchain")
+register_toolchains("//embedded/arduino_mkr:arduino_mkr_toolchain")
