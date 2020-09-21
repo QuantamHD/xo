@@ -10,11 +10,6 @@ py_repositories()
 load("@rules_python//python:pip.bzl", "pip_repositories")
 pip_repositories()
 
-# Third Party
-load("//third_party:third_party.bzl", "third_party")
-third_party()
-# Third Party
-
 http_archive(
   name = "io_tweag_rules_nixpkgs",
   strip_prefix = "rules_nixpkgs-0.7.0",
@@ -54,5 +49,11 @@ nixpkgs_package(
     }
 )
 
+# Third Party
+load("//third_party:third_party.bzl", "third_party")
+third_party()
+# Third Party
+
 register_toolchains("//prolog_rules:prolog_linux_toolchain")
 register_toolchains("//embedded/arduino_mkr:arduino_mkr_toolchain")
+register_toolchains("//silicon/clash_rules:clash_toolchain")
