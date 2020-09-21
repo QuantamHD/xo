@@ -5,5 +5,3 @@ def get_transative_srcs(srcs, deps):
         srcs,
         transitive = [dep[ClashLibraryInfo].transitive_srcs for dep in deps]
     )
-
-
