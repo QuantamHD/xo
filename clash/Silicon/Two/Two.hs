@@ -1,4 +1,4 @@
-module Silicon.Two where
+module Silicon.Two.Two where
 
 import Clash.Prelude
 

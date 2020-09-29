@@ -1,5 +1,6 @@
 load("//silicon/clash_rules:private/library.bzl", "clash_library_impl")
 load("//silicon/clash_rules:private/repl.bzl", "clash_repl_impl")
+load("//silicon/clash_rules:private/verilog.bzl", "clash_verilog_impl")
 
 ClashToolchainInfo = provider(
     doc = "Clash ToolChain Info",
@@ -11,6 +12,9 @@ clash_library = clash_library_impl
 
 # The clash_repl rule
 clash_repl = clash_repl_impl
+
+# The clash_verilog rule
+clash_verilog = clash_verilog_impl
 
 def _clash_toolchain_impl(ctx):
     compiler_binaries = ctx.attr.compiler_package.files.to_list()

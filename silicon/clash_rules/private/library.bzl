@@ -2,7 +2,6 @@ load("//util/bazel:file_utils.bzl", "change_extension")
 load("//silicon/clash_rules:providers.bzl", "ClashLibraryInfo")
 load("//silicon/clash_rules:private/clash_utils.bzl", "get_transative_srcs")
 
-
 def _clash_library_impl(ctx):
     trans_srcs = get_transative_srcs(ctx.files.srcs, ctx.attr.deps)
     clash_compiler = ctx.toolchains["//silicon/clash_rules:toolchain_type"]
@@ -16,20 +15,30 @@ def _clash_library_impl(ctx):
         return fail(
         msg = "No srcs were provided to generate output paths")
 
-    output_haskell_directory = ctx.files.srcs[0].dirname
-
     output_paths = [ctx.actions.declare_file(change_extension(file = file, new_extension = "o")) for file in ctx.files.srcs]
-    output_path = output_paths[0].dirname
+    output_path_parts = output_paths[0].dirname.split("/")
+
+    if "clash" not in output_path_parts:
+        return fail(
+            msg= "All clash files must be in the clash root folder"
+        )
+
+    final_output_path_parts = []
+    for path_part in output_path_parts:
+        if path_part == "clash":
+            final_output_path_parts.append(path_part)
+            break
+        final_output_path_parts.append(path_part)
+    
+    output_path_prefix = "/".join(final_output_path_parts)
 
     ctx.actions.run_shell(
         tools = compiler_binaries,
         inputs = trans_file_list,
         outputs =  output_paths,
-        command = "{} {} && cp {}/*.o {}".format(
-            clash_compiler.clash_info.tools["clash"].path,
-            " ".join(file_paths),
-            output_haskell_directory,
-            output_path
+        command = "clash --make -iclash/ -odir{output_dir} {file_paths}".format(
+            file_paths = " ".join(file_paths),
+            output_dir = output_path_prefix
         ),
         env = {
             "PATH": clash_compiler.clash_info.tools["ghc"].dirname

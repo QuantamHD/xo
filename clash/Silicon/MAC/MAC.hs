@@ -1,9 +1,9 @@
-module Silicon.MAC where
+module Silicon.MAC.MAC where
 
 import Clash.Prelude
-import Silicon.Two
+import Silicon.Two.Two
 
-ma acc (x, y) = acc + Silicon.Two.z(x * y) * 3
+ma acc (x, y) = acc + Silicon.Two.Two.z(x * y) * 4
 
 triple inp = 3 * inp
 
