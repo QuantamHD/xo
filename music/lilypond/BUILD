@@ -1,0 +1,1 @@
+# LilyPond package provides pdf rules for lilypond projects

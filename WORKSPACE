@@ -24,8 +24,7 @@ load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_package", "nixpkgs
 
 nixpkgs_git_repository(
     name = "nixpkgs",
-    revision = "20.03", 
-    sha256 = "f21ca8bc4c8f848a351232e09f3a58d280c05323173a78a5a6013937fb05c6fe"
+    revision = "20.09", 
 )
 
 nixpkgs_package(
@@ -47,6 +46,26 @@ nixpkgs_package(
     repositories = {
         "nixpkgs": "@nixpkgs//:default.nix",
     }
+)
+
+nixpkgs_package(
+    name = "lilypond",
+    repositories = {
+        "nixpkgs": "@nixpkgs//:default.nix",
+    },
+    build_file_content = """
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "bin",
+    srcs = glob(["bin/*"], allow_empty = True),
+)
+
+filegroup(
+    name = "share",
+    srcs = glob(["share/lilypond/**"], allow_empty = True),
+)
+    """
 )
 
 # Third Party
