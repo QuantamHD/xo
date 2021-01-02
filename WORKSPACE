@@ -10,6 +10,7 @@ py_repositories()
 load("@rules_python//python:pip.bzl", "pip_repositories")
 pip_repositories()
 
+
 http_archive(
   name = "io_tweag_rules_nixpkgs",
   strip_prefix = "rules_nixpkgs-0.7.0",
@@ -47,31 +48,28 @@ nixpkgs_package(
         "nixpkgs": "@nixpkgs//:default.nix",
     }
 )
-
-nixpkgs_package(
-    name = "lilypond",
-    repositories = {
-        "nixpkgs": "@nixpkgs//:default.nix",
-    },
-    build_file_content = """
-package(default_visibility = ["//visibility:public"])
-
-filegroup(
-    name = "bin",
-    srcs = glob(["bin/*"], allow_empty = True),
-)
-
-filegroup(
-    name = "share",
-    srcs = glob(["share/lilypond/**"], allow_empty = True),
-)
-    """
+http_archive(
+    name = "io_bazel_rules_rust",
+    sha256 = "b5d4d1c7609714dfef821355f40353c58aa1afb3803401b3442ed2355db9b0c7",
+    strip_prefix = "rules_rust-8d2b4eeeff9dce24f5cbb36018f2d60ecd676639",
+    urls = [
+        # Master branch as of 2020-11-10
+        "https://github.com/bazelbuild/rules_rust/archive/8d2b4eeeff9dce24f5cbb36018f2d60ecd676639.tar.gz",
+    ],
 )
 
 # Third Party
 load("//third_party:third_party.bzl", "third_party")
 third_party()
 # Third Party
+
+
+
+
+
+load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
+
+rust_repositories()
 
 register_toolchains("//prolog_rules:prolog_linux_toolchain")
 register_toolchains("//embedded/arduino_mkr:arduino_mkr_toolchain")
